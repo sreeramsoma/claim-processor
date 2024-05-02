@@ -155,6 +155,7 @@ public class DemoController {
 
             // Save the file to the upload directory
             try (InputStream inputStream = file.getInputStream()) {
+                assert tmpFileName != null;
                 Files.copy(inputStream, uploadPath.resolve(tmpFileName), StandardCopyOption.REPLACE_EXISTING);
             }
         } catch (IOException e) {
@@ -205,13 +206,9 @@ public class DemoController {
         // return st;
         // return gson.toJson(li) + "\n"; // Convert objects list to JSON
         String encodedString = null;
-        try {
-            MyDataObject rec = li.get(0);
-            rec.numrows = r;
-            encodedString = URLEncoder.encode(gson.toJson(li.get(0)), StandardCharsets.UTF_8.toString());
-        } catch (UnsupportedEncodingException e) {
-
-        }
+        MyDataObject rec = li.get(0);
+        rec.numrows = r;
+        encodedString = URLEncoder.encode(gson.toJson(li.get(0)), StandardCharsets.UTF_8);
 
         String redirectUrl = "/something.html?jsonData=" + encodedString;
         System.out.println(gson.toJson(li.get(0)));
