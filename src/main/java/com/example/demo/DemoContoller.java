@@ -211,7 +211,7 @@ public class DemoContoller {
 
         }
 
-        String redirectUrl = "/something.html?jsonData=" + encodedString;
+        String redirectUrl = "/excel.html?jsonData=" + encodedString;
         System.out.println(gson.toJson(li.get(0)));
         return new RedirectView(redirectUrl, true);
     }
