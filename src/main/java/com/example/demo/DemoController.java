@@ -1,16 +1,11 @@
 package com.example.demo;
 
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.view.RedirectView;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.apache.poi.EncryptedDocumentException;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
@@ -34,12 +29,17 @@ import java.util.*;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+
 @RestController
-public class DemoContoller {
-    private Gson gson = new GsonBuilder().setPrettyPrinting().create();
+public class DemoController {
+    private final Gson gson = new GsonBuilder().setPrettyPrinting().create();
     private List<MyDataObject> li;
     private String fileName;
-    private String uploadDir = "/Users/soma/Downloads/upload/";
+    private final String uploadDir = "/Users/soma/Downloads/upload/";
+
+    public DemoController() {
+        this.li = new ArrayList<>();
+    }
 
     @RequestMapping("/404")
     public String handle404() {
@@ -47,18 +47,20 @@ public class DemoContoller {
     }
 
     @PostMapping("/update")
-    public void updateCache(@RequestBody Map<String, Object> payload) {
-
+    public ResponseEntity<String> updateCache(@RequestBody Map<String, Object> payload) {
         System.out.println(payload);
         try {
             int age = Integer.parseInt(payload.get("age").toString());
             double salary = Double.parseDouble(payload.get("salary").toString());
             int index = Integer.parseInt(payload.get("row").toString()) - 1;
-            MyDataObject obj = li.get(index);
+            MyDataObject obj = this.li.get(index);
             obj.age = age;
             obj.salary = salary;
-        } catch (NumberFormatException e) {
-
+            return ResponseEntity.ok("Update successful");
+        } catch (NumberFormatException | IndexOutOfBoundsException e) {
+            throw new IndexOutOfBoundsException("Unable to find entity for payload: " + payload.toString()); // Let the global exception handler deal with these exceptions
+        } catch (Exception e) {
+            throw new RuntimeException(e.getMessage(), e); // Let the global exception handler deal with other exceptions
         }
     }
 
