@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Upload Excel File</title>
+</head>
+<body>
+    <h2>Upload Excel File</h2>
+    <form action="http://localhost:8080/upload" method="post" enctype="multipart/form-data">
+        <label for="excelFile">Choose Excel File (.xlsx):</label>
+        <input type="file" id="excelFile" name="file" accept=".xlsx", application/vnd.openxmlformats-officedocument.spreadsheetml.sheet">
+        <br><br>
+        <input type="submit" value="Upload">
+    </form>
+</body>
+</html>
