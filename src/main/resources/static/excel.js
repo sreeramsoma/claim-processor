@@ -44,7 +44,6 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
 
-
     const strip = document.getElementById('buttonStrip');
     const nextButton = strip.querySelector('#next');
     nextButton.addEventListener('click', function () {

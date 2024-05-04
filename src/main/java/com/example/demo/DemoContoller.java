@@ -39,7 +39,7 @@ public class DemoContoller {
     private Gson gson = new GsonBuilder().setPrettyPrinting().create();
     private List<MyDataObject> li;
     private String fileName;
-    private String uploadDir = "/Users/soma/Downloads/upload/";
+    private String uploadDir = "~/upload/";
 
     @RequestMapping("/404")
     public String handle404() {
@@ -53,10 +53,12 @@ public class DemoContoller {
         try {
             int age = Integer.parseInt(payload.get("age").toString());
             double salary = Double.parseDouble(payload.get("salary").toString());
+            String name = payload.get("name").toString();
             int index = Integer.parseInt(payload.get("row").toString()) - 1;
             MyDataObject obj = li.get(index);
             obj.age = age;
             obj.salary = salary;
+            obj.name = name;
         } catch (NumberFormatException e) {
 
         }
