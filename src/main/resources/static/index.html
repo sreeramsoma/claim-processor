@@ -5,11 +5,21 @@
 </head>
 <body>
     <h2>Upload Excel File</h2>
-    <form action="http://localhost:8080/upload" method="post" enctype="multipart/form-data">
+    <form id="uploadForm" method="post" enctype="multipart/form-data">
         <label for="excelFile">Choose Excel File (.xlsx):</label>
-        <input type="file" id="excelFile" name="file" accept=".xlsx", filter=".xlxs", application/vnd.openxmlformats-officedocument.spreadsheetml.sheet">
+        <input type="file" id="excelFile" name="file" accept=".xlsx" filter=".xlxs" application/vnd.openxmlformats-officedocument.spreadsheetml.sheet">
         <br><br>
         <input type="submit" value="Upload">
     </form>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const backendUrl = `${window.location.origin}`; // Define the backend URL here
+
+            // Update the form action attribute with the backend URL
+            const form = document.getElementById('uploadForm');
+            form.action = `${backendUrl}/upload`;
+        });
+    </script>
 </body>
 </html>
