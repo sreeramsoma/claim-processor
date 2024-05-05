@@ -1,5 +1,7 @@
 // script.js
+const backendUrl = `${window.location.origin}`;
 
+console.log(backendUrl)
 function setData(data) {
     // Access the iframe's content document
     const iframe = document.getElementById('dataFrame');
@@ -56,7 +58,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
         // Make a fetch request to get the next record
-        const url = '/getRecord?row=' + (row + 1);
+        const url = `${backendUrl}/getRecord?row=${row + 1}`;
         console.error(url + "ding");
         fetchDataAndUpdate(url);
 
@@ -71,14 +73,14 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
         // Make a fetch request to get the previous record
-        const url = '/getRecord?row=' + (row - 1);
+        const url = `${backendUrl}/getRecord?row=${row - 1}`;
         fetchDataAndUpdate(url);
     });
 
     const downloadButton = strip.querySelector('#download');
     downloadButton.addEventListener('click', function () {
         console.log("called download");
-        const url = '/downloadExcel';
+        const url = `${backendUrl}/downloadExcel`;
         let filename = 'file.xlsx';
         fetch(url, {
             method: 'GET',
@@ -147,7 +149,7 @@ document.addEventListener('DOMContentLoaded', function () {
         };
 
         // Make an AJAX request to the update route
-        fetch('/update', {
+        fetch(`${backendUrl}/update`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
