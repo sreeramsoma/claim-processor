@@ -2,6 +2,8 @@
 const backendUrl = `${window.location.origin}`;
 
 console.log(backendUrl)
+
+
 function setData(data) {
     // Access the iframe's content document
     const iframe = document.getElementById('dataFrame');
